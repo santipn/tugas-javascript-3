@@ -1,0 +1,64 @@
+//Bagian 1
+function cobaLogin() {
+    return new Promise((resolve, reject) => {
+        const time = 6000;
+        if(time < 6000) {
+            setTimeout(() => {
+                resolve('ok boleh login')
+            }, time)
+        }else{
+            reject(new Error('ini telat banget, gak bisa!'))
+        }
+    })
+}
+
+const coba = cobaLogin()
+    coba.then(coba => console.log(coba))
+        .catch(coba => console.log(Error(coba)))
+
+async function cobaAsnc() {
+    try {
+        const coba = await cobaLogin()
+        console.log(coba)
+    } catch (err) {
+        console.error('ini telat banget, gak bisa!')
+    }
+}
+cobaAsync()
+
+//------------------------------------------------------------------------------------------------------------------//
+
+//Bagian 2
+const cekProducts = (stok) =>{
+    return new Promise((resolve, reject)=>{
+        setTimeout(() => {
+            const dataProducts = ['Ayam Bawang', 'Kari Spesial', 'Soto Lamongan', 'Rendang', 'Iga Penyet']
+            let mie = dataProducts.find((item)=>{
+                return item === stok
+            })
+            if(mie){
+                resolve(mie)
+            }else{
+                reject(new Error('Stok tidak ada'))
+            }
+        }, 3000);
+    })
+}
+
+cekProducts('Ayam Bakar').then((stok)=> {
+    console.log(`${stok} Tersedia`)
+}).catch((error)=> {
+    console.log(error)
+}).finally(()=>  { 
+    console.log('Selesai')
+})
+
+const getproducts = async (stok) => {
+    try {
+        const hasil = await cekProducts(stok);
+        console.log(`${hasil} ada, tersedia`)
+    } catch (error) {
+        console.log(`${error}`)
+    }
+}
+getproducts('Rendang')
